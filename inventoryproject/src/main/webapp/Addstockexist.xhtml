@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui = "http://java.sun.com/jsf/facelets">
+    
+   <head>
+   <script >
+   function validateInput(regexString) {
+	    var theEvent = window.event || event;
+	    var key = theEvent.keyCode || theEvent.which;
+	    if (key >= 46) {
+	        key = String.fromCharCode(key);
+	        var regex = new RegExp("^" + regexString + "$");
+	        if (!regex.test(key)) {
+	            theEvent.returnValue = false;
+	            if (theEvent.preventDefault) {
+	                theEvent.preventDefault();
+	            }
+	        }
+	    }
+	}
+   </script>
+   <style>
+   label{
+   text-align: center;}
+   
+   </style>
+   
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+   </link>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="style.css" />
+<title>Add Stock</title>
+
+
+</head>
+<h:body>
+<ui:include src="AdminMenu.xhtml" /> <br /><br />
+
+<center>
+
+</center>
+
+<h:form style="display: flex; flex-flow: column;">
+<p class="text-danger" style="text-align: center"></p>
+
+
+<label>Item Name :</label>
+<h:inputText id="itemName" value="#{stockDetails.itemName}" required="true" requiredMessage="ffrtr" onkeypress="validateInput('[A-Z]*[a-z]*')">
+ <h:message for="itemName" style="color:red" />
+</h:inputText><br /><br />
+
+
+
+<label>Price :</label>
+<h:inputText id="price" value="#{stockDetails.price}" onkeypress="validateInput('[0-9]*')" required="true" requiredMessage="edgcvu" >
+ <h:message for="itemName" style="color:red" />
+</h:inputText><br /><br />
+
+
+<label>Item Quantity :</label>
+<h:inputText id="quantityAvail" value="#{stockDetails.quantityAvail}" onkeypress="validateInput('[0-9]*')"  required="false" requiredMessage="hgdvh"/><br /><br />
+
+
+<h:commandButton value="Add" action="#{stockDAO.addstockDetails(stockDetails)}"  />
+</h:form>
+</h:body>
+</html>
